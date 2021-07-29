@@ -10,9 +10,9 @@ Host a sandbox locally using the opensource code from [getsandbox.com](https://g
 
 ## Run Sandbox locally
 
-This will show any errors/info in the terminal
+Run Sandbox
 
-Run Sandbox (this is where any errors/info can be seen)
+- This will show any errors/info in the terminal
 
 ```bash
 docker run -p 8080:8080 -v $(pwd)/src:/base -it getsandbox/worker-cli:latest
