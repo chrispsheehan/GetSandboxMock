@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+
     sandbox:
         image: getsandbox/worker-cli
         container_name: sandbox
@@ -8,6 +9,7 @@ services:
             - ./src:/base
         ports: 
             - "8080:8080"
+
     sandbox_ngrok:
         image: wernight/ngrok
         container_name: sandbox_ngrok        
@@ -17,5 +19,17 @@ services:
         links:
             - "sandbox"
         ports: 
-            - "4040"            
-        command: ngrok http sandbox:8080  
+            - "4040:4040"            
+        command: ngrok http sandbox:8080
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:4040"]     
+
+    jq_processor:
+        image: dwdraju/alpine-curl-jq
+        container_name: jq_processor        
+        depends_on:
+            sandbox_ngrok:
+                condition: service_healthy
+        links:
+            - "sandbox_ngrok"         
+        command: sh -c "curl -s http://sandbox_ngrok:4040/api/tunnels | jq '.tunnels[0].public_url'"
