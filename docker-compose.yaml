@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+    sandbox:
+        image: getsandbox/worker-cli
+        container_name: sandbox
+        volumes:
+            - ./src:/base
+        ports: 
+            - "8080:8080"
+    sandbox_ngrok:
+        image: wernight/ngrok
+        container_name: sandbox_ngrok        
+        depends_on:
+            sandbox:
+                condition: service_started
+        links:
+            - "sandbox"
+        ports: 
+            - "4040"            
+        command: ngrok http sandbox:8080         
