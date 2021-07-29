@@ -10,31 +10,17 @@ Host a sandbox locally using the opensource code from [getsandbox.com](https://g
 
 ## Run Sandbox locally
 
-```bash
-Run Sandbox
-```
-
 - This will show any errors/info in the terminal
 
 ```bash
 docker run -p 8080:8080 -v $(pwd)/src:/base -it getsandbox/worker-cli:latest
-```
-
-Test
-
-```bash
 http://localhost:8080/hello
 ```
 
-Expose
+## Expose local url with ngrok
 
 ```bash
 ngrok http 8080
-```
-
-Get ngrok url
-
-```bash
 curl -s http://localhost:4040/api/tunnels | jq '.tunnels[0].public_url'
 ```
 
