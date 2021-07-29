@@ -10,7 +10,9 @@ Host a sandbox locally using the opensource code from [getsandbox.com](https://g
 
 ## Run Sandbox locally
 
+```bash
 Run Sandbox
+```
 
 - This will show any errors/info in the terminal
 
@@ -49,6 +51,7 @@ curl $(docker port sandbox_ngrok 4040)/api/tunnels
 ## Docker compose
 
 ```bash
+docker build -t getsandboxlive .
 docker-compose up
 ```
 
@@ -56,4 +59,10 @@ Url displayed in output as below
 
 ```bash
 jq_processor     | "http://f0afab9ae1f9.ngrok.io"
+```
+
+Activity log
+
+```bash
+http://127.0.0.1:8090/
 ```

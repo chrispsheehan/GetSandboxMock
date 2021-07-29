@@ -3,12 +3,16 @@ version: '3.7'
 services:
 
     sandbox:
-        image: getsandbox/worker-cli
+        image: getsandboxlive
         container_name: sandbox
         volumes:
             - ./src:/base
         ports: 
             - "8080:8080"
+            - "8090:90"
+        environment:
+            - "WATCH=true"
+        
 
     sandbox_ngrok:
         image: wernight/ngrok
