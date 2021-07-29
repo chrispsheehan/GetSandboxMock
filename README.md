@@ -15,6 +15,14 @@ docker run -p 8080:8080 -v $(pwd)/src:/base -it getsandbox/worker-cli:latest
 
 ## Access locally
 
+Ngrok dashboard
+
+```bash
+http://localhost:4040
+```
+
+Sandbox endpoints
+
 ```bash
 http://127.0.0.1:8080/hello
 ```
@@ -30,8 +38,6 @@ Any traffic or errors are displayed in the terminal.
 ```
 
 ## Access externally
-
-- [Install ngrok](https://ngrok.com/download/)
 
 ```bash
 ngrok http 8080
