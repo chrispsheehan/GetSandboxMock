@@ -51,4 +51,5 @@ Docker compose
 
 ```bash
 docker-compose up
+curl $(docker port sandbox_ngrok 4040)/api/tunnels
 ```
