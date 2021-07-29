@@ -4,40 +4,39 @@ Host a sandbox locally using the opensource code from [getsandbox.com](https://g
 
 ## Pre-requists
 
-- [Install docker](https://docs.docker.com/get-docker/)
-- [Install ngrok](https://ngrok.com/download/)
+- [docker](https://docs.docker.com/get-docker/)
+- [ngrok](https://ngrok.com/download/)
+- [jq](https://stedolan.github.io/jq/)
 
 ## Run Sandbox locally
 
 This will show any errors/info in the terminal
 
+Run Sandbox (this is where any errors/info can be seen)
+
 ```bash
 docker run -p 8080:8080 -v $(pwd)/src:/base -it getsandbox/worker-cli:latest
 ```
 
-## LocalHost
-
-Ngrok dashboard
-
-```bash
-http://localhost:4040
-```
-
-Sandbox endpoints
+Test
 
 ```bash
 http://localhost:8080/hello
 ```
 
-## Expose localhost
+Expose
 
 ```bash
 ngrok http 8080
 ```
 
-## Host ngrok on Docker
+Get ngrok url
 
-Run Sandbox in docker manually.
+```bash
+curl -s http://localhost:4040/api/tunnels | jq '.tunnels[0].public_url'
+```
+
+## Ngrok on Docker
 
 ```bash
 docker rm sandbox -f
@@ -47,13 +46,14 @@ docker run -d -p 4040 --name sandbox_ngrok -it --link sandbox wernight/ngrok ngr
 curl $(docker port sandbox_ngrok 4040)/api/tunnels
 ```
 
-Docker compose
+## Docker compose
 
 ```bash
 docker-compose up
-curl $(docker port sandbox_ngrok 4040)/api/tunnels
 ```
 
-## [jq](https://stedolan.github.io/jq/)
+Url displayed in output as below
 
-(curl $(docker port sandbox_ngrok 4040)/api/tunnels) | jq -c '.tunnels[] | select(.proto | contains("https"))? | .public_url'
+```bash
+jq_processor     | "http://f0afab9ae1f9.ngrok.io"
+```
