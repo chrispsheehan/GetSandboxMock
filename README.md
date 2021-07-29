@@ -52,7 +52,7 @@ curl $(docker port sandbox_ngrok 4040)/api/tunnels
 
 ```bash
 docker build -t getsandboxlive .
-docker-compose up
+docker-compose up --force-recreate
 ```
 
 Url displayed in output as below

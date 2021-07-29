@@ -7,11 +7,13 @@ services:
         container_name: sandbox
         volumes:
             - ./src:/base
+            - ./state:/state
         ports: 
             - "8080:8080"
             - "8090:90"
         environment:
             - "WATCH=true"
+            - "STATEFILE=default.json"
         
 
     sandbox_ngrok:

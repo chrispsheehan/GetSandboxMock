@@ -5,9 +5,12 @@
 
 import { createUserHandler, getUsersHandler, getUserByUsernameHandler } from "users.mjs";
 
+state.hellos = state.hellos || [];
+
 // A basic route returning a canned response
 Sandbox.define('/hello', 'get', function(req, res) {
     // send 'Hello world' response
+    state.hellos.push({ welcome: "hi"});
     res.send('Hello world');
 });
 
