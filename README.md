@@ -53,3 +53,7 @@ Docker compose
 docker-compose up
 curl $(docker port sandbox_ngrok 4040)/api/tunnels
 ```
+
+## [jq](https://stedolan.github.io/jq/)
+
+(curl $(docker port sandbox_ngrok 4040)/api/tunnels) | jq -c '.tunnels[] | select(.proto | contains("https"))? | .public_url'
