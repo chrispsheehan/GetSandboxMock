@@ -30,9 +30,9 @@ services:
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:4040"]     
 
-    jq_processor:
+    ngrok:
         image: dwdraju/alpine-curl-jq
-        container_name: jq_processor        
+        container_name: ngrok        
         depends_on:
             sandbox_ngrok:
                 condition: service_healthy

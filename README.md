@@ -1,6 +1,6 @@
 # GetSandboxMock
 
-Host a sandbox locally using the opensource code from [getsandbox.com](https://getsandbox.com/)
+Host a sandbox using the opensource code from [getsandbox.com](https://getsandbox.com/)
 
 ## Pre-requists
 
@@ -8,47 +8,42 @@ Host a sandbox locally using the opensource code from [getsandbox.com](https://g
 - [ngrok](https://ngrok.com/download/)
 - [jq](https://stedolan.github.io/jq/)
 
-## Run Sandbox locally
+## State
 
-- This will show any errors/info in the terminal
+State files are stored in the ./state folder.
 
-```bash
-docker run -p 8080:8080 -v $(pwd)/src:/base -it getsandbox/worker-cli:latest
-http://localhost:8080/hello
-```
-
-## Expose local url with ngrok
-
-```bash
-ngrok http 8080
-curl -s http://localhost:4040/api/tunnels | jq '.tunnels[0].public_url'
-```
-
-## Ngrok on Docker
-
-```bash
-docker rm sandbox -f
-docker run -d -p 8080:8080 --name sandbox -v $(pwd)/src:/base getsandbox/worker-cli:latest
-docker rm sandbox_ngrok -f
-docker run -d -p 4040 --name sandbox_ngrok -it --link sandbox wernight/ngrok ngrok http sandbox:8080
-curl $(docker port sandbox_ngrok 4040)/api/tunnels
-```
-
-## Docker compose
+## Build docker image
 
 ```bash
 docker build -t getsandboxlive .
-docker-compose up --force-recreate
 ```
 
-Url displayed in output as below
+## Local
 
 ```bash
-jq_processor     | "http://f0afab9ae1f9.ngrok.io"
+docker-compose up --force-recreate sandbox
 ```
 
-Activity log
+```bash
+curl http://localhost:8080/hello
+```
+
+## Expose to the internet with ngrok
 
 ```bash
-http://127.0.0.1:8090/
+docker-compose up --force-recreate ngrok
+```
+
+```bash
+Creating network "getsandboxmock_default" with the default driver
+Creating sandbox ... done
+Creating sandbox_ngrok ... done
+Creating ngrok         ... done
+Attaching to ngrok
+ngrok            | "https://b864c6591753.ngrok.io"
+ngrok exited with code 0
+```
+
+```bash
+curl https://b864c6591753.ngrok.io/hello
 ```
