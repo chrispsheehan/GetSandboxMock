@@ -1,16 +1,14 @@
 # GetSandboxMock
 
-Host a sandbox using the opensource code from [getsandbox.com](https://getsandbox.com/)
+Host a sandbox using the opensource code from [getsandbox.com](https://getsandbox.com/).
 
-## Pre-requists
+Note - Changes to mock code are read and reflected in behaviour immediately.
+
+## References
 
 - [docker](https://docs.docker.com/get-docker/)
 - [ngrok](https://ngrok.com/download/)
 - [jq](https://stedolan.github.io/jq/)
-
-## State
-
-State files are stored in the ./state folder.
 
 ## Build docker image
 
@@ -34,8 +32,7 @@ curl http://localhost:8080/hello
 docker-compose up --force-recreate ngrok
 ```
 
-```bash
-Creating network "getsandboxmock_default" with the default driver
+```docker
 Creating sandbox ... done
 Creating sandbox_ngrok ... done
 Creating ngrok         ... done
@@ -46,4 +43,16 @@ ngrok exited with code 0
 
 ```bash
 curl https://b864c6591753.ngrok.io/hello
+```
+
+## State
+
+State files are stored in the ./state folder.
+
+MetaData can be viewed via <http://localhost:8090/>
+
+## Tidy up
+
+```bash
+docker-compose down
 ```
