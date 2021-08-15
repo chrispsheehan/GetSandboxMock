@@ -14,6 +14,8 @@ services:
         environment:
             - "WATCH=true"
             - "STATEFILE=default.json"
+        networks:
+            - sandbox-nw   
         
 
     sandbox_ngrok:
@@ -22,20 +24,27 @@ services:
         depends_on:
             sandbox:
                 condition: service_started
-        links:
-            - "sandbox"
         ports: 
             - "4040:4040"            
         command: ngrok http sandbox:8080
         healthcheck:
-            test: ["CMD", "curl", "-f", "http://localhost:4040"]     
+            test: ["CMD", "curl", "-f", "http://localhost:4040"]
+        networks:
+            - sandbox-nw
+            - ngrok-nw           
 
-    jq_processor:
+    ngrok:
         image: dwdraju/alpine-curl-jq
-        container_name: jq_processor        
+        container_name: ngrok        
         depends_on:
             sandbox_ngrok:
-                condition: service_healthy
-        links:
-            - "sandbox_ngrok"         
+                condition: service_healthy     
         command: sh -c "curl -s http://sandbox_ngrok:4040/api/tunnels | jq '.tunnels[0].public_url'"
+        networks:
+            - ngrok-nw           
+
+networks:
+    sandbox-nw:
+        name: sandbox-nw
+    ngrok-nw:
+        name: ngrok-nw                    
