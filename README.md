@@ -7,7 +7,7 @@ Note - Changes to mock code are read and reflected in behaviour immediately.
 ## References
 
 - [docker](https://docs.docker.com/get-docker/)
-- [ngrok](https://ngrok.com/download/)
+- [ngrok](https://ngrok.com/download)
 - [jq](https://stedolan.github.io/jq/)
 
 ## Build docker image
